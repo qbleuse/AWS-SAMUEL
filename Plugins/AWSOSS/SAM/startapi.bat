@@ -1,0 +1,1 @@
+sam local start-api --container-host-interface 0.0.0.0 --debug

@@ -1,0 +1,36 @@
+{
+    "FileVersion" : 3,
+ 
+    "FriendlyName" : "AWS Gamelift OSS Integration",
+    "Description" : "Integrates Amazon Web Services Gamelift into a familiar Unreal Online SubSystems wrapper",
+    "Category" : "",
+    "CreatedBy" : "Quentin Bleuse",
+    "CreatedByURL" : "N/A",
+ 
+    "Modules" :
+    [
+        {
+            "Name" : "AWSOSS",
+            "Type" : "RunTime",
+			      "LoadingPhase" : "PreDefault"
+        } 
+    ],
+  "Plugins": [
+    {
+      "Name": "OnlineSubsystem",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystemUtils",
+      "Enabled": true
+    },
+    {
+      "Name": "OnlineSubsystemNull",
+      "Enabled": true
+    },
+    {
+      "Name": "GameLiftPlugin",
+      "Enabled": true
+    }
+  ]
+}

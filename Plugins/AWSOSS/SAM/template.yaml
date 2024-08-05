@@ -1,0 +1,138 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  UCSAM
+
+  SAM template representing the Undercover AWS server setup
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Runtime: python3.9
+    Handler: app.lambda_handler
+    Architectures:
+      - x86_64
+    # not sure about the Globals commented down here 
+    Timeout: 15
+    MemorySize: 128
+
+Resources:
+  # Describe AwS Gateway API to allow HTTP exchange between client and server
+  # UndercoverRestApi:
+  #   Type: AWS::Serverless::Api
+  #   Properties:
+  #     StageName: Prod
+      
+  # Describe Identity and Access Management Policy to have full access to gamelift
+  #UndercoverGameLiftFullAccessPolicy:
+  #  Properties:
+  #    Description: Policy for full gamelift access
+  #    Path: /
+  #    PolicyDocument:
+  #      Statement:
+  #      - Action: gamelift:*
+  #        Effect: Allow
+  #        Resource: '*'
+  #      Version: '2012-10-17'
+  #  Type: AWS::IAM::ManagedPolicy      
+
+  # AWS Lambda that will create a game session through a gamelift call
+  CreateSession:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: create_session/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        CreateSession:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /create_session
+            Method: POST
+
+  # AWS Lambda that will create a game session through a gamelift call
+  CreateSessionLocal:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: create_session_local/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        CreateSessionLocal:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /create_session_local
+            Method: POST
+            
+   # AWS Lambda that will create a player session from client-chosen game session and get it back to client for connexion
+  JoinSession:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: join_session/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        JoinSession:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /join_session
+            Method: POST
+
+   # AWS Lambda that will create a player session from client-chosen game session and get it back to client for connexion
+  JoinSessionLocal:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: join_session_local/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        JoinSessionLocal:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /join_session_local
+            Method: POST
+    
+  # AWS Lambda that will get a list of all available gamelift session from a single fleet and get it back to client
+  FindSession:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: find_session/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        FindSession:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /find_session
+            Method: GET
+
+  # AWS Lambda that will get a list of all available gamelift session from a single fleet and get it back to client
+  FindSessionLocal:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: find_session_local/
+      #Policies:
+      #  - !Ref GameLiftAccessPolicy
+      Events:
+        FindSessionLocal:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            #RestApiId: !Ref UndercoverRestApi
+            Path: /find_session_local
+            Method: GET
+         
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  UndercoverRestApi:
+    Description: "API Gateway endpoint URL for Prod stage for Game Service API"
+    Value: !Sub "https://${UndercoverRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  CreateSession:
+    Description: "AWS Lambda that will create a game session through a gamelift call"
+    Value: !GetAtt CreateSession.Arn
