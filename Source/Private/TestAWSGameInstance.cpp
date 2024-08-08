@@ -258,14 +258,8 @@ FDelegateHandle UTestAWSGameInstance::FindSession(FOnFindSessionsCompleteDelegat
 	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
 	if (sessions.IsValid())
 	{
-		// Re-initialize here, otherwise I think there might be issues with people re-calling search for some reason before it is destroyed
-		bool bRunSecondSearch = false;
-		bool bIsOnSecondSearch = false;
-
 		FDelegateHandle delegateHandle = sessions->AddOnFindSessionsCompleteDelegate_Handle(onFoundSessionDelegate);
 
-		// Copy the derived temp variable over to it's base class
-		//SearchObject->QuerySessionSettings = tem;
 		const FUniqueNetIdPtr& netId = GetPrimaryPlayerController()->PlayerState->GetUniqueId().GetUniqueNetId();
 		sessions->FindSessions(*netId, searchResult.ToSharedRef());
 

@@ -24,7 +24,7 @@ Let us review how those method work and an example on how to use them.
 The method were implemented to be similar in architecture as creating LAN session with the Null OSS.
 Therefore, the way session are created on gamelift are through user request by a client, that associates said client as the owner.
 
-[Here](../../Source/Private/TestAWSGameInstance.cpp#L201) is an example of calling CreateSession and StartSession in a GameInstance
+[Here](../../Source/Private/TestAWSGameInstance.cpp#L198) is an example of calling CreateSession and StartSession in a GameInstance
 
 ```cpp
 void UTestAWSGameInstance::CreateSession_Implementation(bool isSessionLan)
@@ -67,6 +67,7 @@ void UTestAWSGameInstance::CreateSession_Implementation(bool isSessionLan)
 		namedSession->bHosting = true;
 		sessions->StartSession(NAME_GameSession);
 	}
+}
 ```
 
 CreateSession has for only purpose to save the setting of a certain game session locally, in the OSS.
@@ -75,3 +76,63 @@ Then if you call Start Session on this created session, the Plugin will create a
 With this Connect String (meaning the url and port of your gamelift server), you may connect to the newly created game session that client is the owner.
 
 [Here](../../Source/Private/TestAWSGameInstance.cpp#L309) is an example of how you would do this in the callback of Start Session.
+
+```cpp
+void UTestAWSGameInstance::JoinAfterStart(FName sessionName, bool startSuceeded)
+{
+	if (startSuceeded && bShouldJoin)
+	{
+		const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
+		FNamedOnlineSession* namedSession  = sessions->GetNamedSession(sessionName);
+
+		/* crated a session in lan, make it a listen server */
+		if (namedSession->bHosting && namedSession->SessionSettings.bIsLANMatch)
+		{
+			ToListenServer(GetWorld()->GetMapName());
+		}
+		else
+		{
+			/* created a session through AWS, need to join the dedicated server created */
+			FString travelURL;
+			if (GetPrimaryPlayerController()  && sessions->GetResolvedConnectString(sessionName, travelURL))
+			{
+				GetPrimaryPlayerController()->ClientTravel(travelURL, ETravelType::TRAVEL_Absolute);
+			}
+		}
+
+		bShouldJoin = false;
+	}
+}
+```
+
+The owner will then be the first to connect to the distant server and be regognized as the owner 
+
+## Find Session
+
+The find session method uses the same interface as any OSS, it uses a FOnlineSessionSearch and returns  an array of FOnlineSessionSearchResults.
+
+For this, it will request information on all opened Game Session on the associated Gamelift instance.
+
+[Here](../../Source/Private/TestAWSGameInstance.cpp#L253) is an example of what the Find method could look like.
+
+```cpp
+FDelegateHandle UTestAWSGameInstance::FindSession(FOnFindSessionsCompleteDelegate& onFoundSessionDelegate, TSharedPtr<FOnlineSessionSearch>& searchResult)
+{
+	/* comes from advanced session plugin,
+	 * but we're doing it in cpp rather than blueprint */
+
+	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
+	if (sessions.IsValid())
+	{
+
+		FDelegateHandle delegateHandle = sessions->AddOnFindSessionsCompleteDelegate_Handle(onFoundSessionDelegate);
+
+		const FUniqueNetIdPtr& netId = GetPrimaryPlayerController()->PlayerState->GetUniqueId().GetUniqueNetId();
+		sessions->FindSessions(*netId, searchResult.ToSharedRef());
+
+		return delegateHandle;
+	}
+
+	return FDelegateHandle();
+}
+```
