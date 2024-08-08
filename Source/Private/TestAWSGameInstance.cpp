@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project SessionSettings.
 
 
-#include "UndercoverGameInstance.h"
+#include "TestAWSGameInstance.h"
 
 /* Kismet */
 #include "Kismet/KismetSystemLibrary.h"
@@ -20,7 +20,7 @@
 
 DEFINE_LOG_CATEGORY_STATIC(GameServerLog, Log, All);
 
-UUndercoverGameInstance::UUndercoverGameInstance()
+UTestAWSGameInstance::UTestAWSGameInstance()
 {
 	/* put in constructor default session settings */
 
@@ -42,7 +42,7 @@ UUndercoverGameInstance::UUndercoverGameInstance()
 	SessionSettings.bAllowInvites = true;
 }
 
-void UUndercoverGameInstance::Init()
+void UTestAWSGameInstance::Init()
 {
 	Super::Init();
 
@@ -160,24 +160,21 @@ void UUndercoverGameInstance::Init()
 #else
 
 	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
-	sessions->OnJoinSessionCompleteDelegates.AddUObject(this, &UUndercoverGameInstance::TravelToJoinSession);
-	sessions->OnStartSessionCompleteDelegates.AddUObject(this, &UUndercoverGameInstance::JoinAfterStart);
+	sessions->OnJoinSessionCompleteDelegates.AddUObject(this, &UTestAWSGameInstance::TravelToJoinSession);
+	sessions->OnStartSessionCompleteDelegates.AddUObject(this, &UTestAWSGameInstance::JoinAfterStart);
 
-	FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this, &UUndercoverGameInstance::OnGameLosesFocus);
+	FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this, &UTestAWSGameInstance::OnGameLosesFocus);
 #endif
 }
 
 
-void UUndercoverGameInstance::ServerTravel_Implementation(const FString& levelName, const FString& path)
+void UTestAWSGameInstance::ServerTravel_Implementation(const FString& levelName, const FString& path)
 {
 	AGameModeBase* gameMode = GetWorld()->GetAuthGameMode();
 
 	if (gameMode->IsValidLowLevel())
-	{
-		//Default paths to Maps folder and GameModes folder
-		FString mapsPath = path.Len() > 0 ? path :  TEXT("/Game/UndercoverMain/Maps/");
-		
-		FString travelURL = mapsPath + levelName;
+	{	
+		FString travelURL = path + levelName;
 		
 		if (gameMode->GetNetMode() & (ENetMode::NM_DedicatedServer | ENetMode::NM_ListenServer))
 			travelURL += TEXT("?listen");
@@ -189,7 +186,7 @@ void UUndercoverGameInstance::ServerTravel_Implementation(const FString& levelNa
 	}
 }
 
-void UUndercoverGameInstance::ToListenServer_Implementation(const FString& levelName)
+void UTestAWSGameInstance::ToListenServer_Implementation(const FString& levelName)
 {
 	UWorld* currentWorld = GetWorld();
 	const FString& string = levelName;
@@ -198,7 +195,7 @@ void UUndercoverGameInstance::ToListenServer_Implementation(const FString& level
 	currentWorld->Listen(newURL);
 }
 
-void UUndercoverGameInstance::CreateSession_Implementation(bool isSessionLan)
+void UTestAWSGameInstance::CreateSession_Implementation(bool isSessionLan)
 {
 	/* comes from advanced session plugin,
 	 * but we're doing it in cpp rather than blueprint */
@@ -240,7 +237,7 @@ void UUndercoverGameInstance::CreateSession_Implementation(bool isSessionLan)
 	}
 }
 
-void UUndercoverGameInstance::EndSession_Implementation()
+void UTestAWSGameInstance::EndSession_Implementation()
 {
 	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
 
@@ -253,7 +250,7 @@ void UUndercoverGameInstance::EndSession_Implementation()
 }
 
 
-FDelegateHandle UUndercoverGameInstance::FindSession(FOnFindSessionsCompleteDelegate& onFoundSessionDelegate, TSharedPtr<FOnlineSessionSearch>& searchResult)
+FDelegateHandle UTestAWSGameInstance::FindSession(FOnFindSessionsCompleteDelegate& onFoundSessionDelegate, TSharedPtr<FOnlineSessionSearch>& searchResult)
 {
 	/* comes from advanced session plugin,
 	 * but we're doing it in cpp rather than blueprint */
@@ -278,7 +275,7 @@ FDelegateHandle UUndercoverGameInstance::FindSession(FOnFindSessionsCompleteDele
 	return FDelegateHandle();
 }
 
-bool UUndercoverGameInstance::JoinSessionAndTravel(const FOnlineSessionSearchResult& sessionToJoin)
+bool UTestAWSGameInstance::JoinSessionAndTravel(const FOnlineSessionSearchResult& sessionToJoin)
 {
 	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
 
@@ -294,7 +291,7 @@ bool UUndercoverGameInstance::JoinSessionAndTravel(const FOnlineSessionSearchRes
 	return false;
 }
 
-void UUndercoverGameInstance::TravelToJoinSession(FName sessionName, EOnJoinSessionCompleteResult::Type joinResult)
+void UTestAWSGameInstance::TravelToJoinSession(FName sessionName, EOnJoinSessionCompleteResult::Type joinResult)
 {
 	if (joinResult == EOnJoinSessionCompleteResult::Success)
 	{
@@ -309,7 +306,7 @@ void UUndercoverGameInstance::TravelToJoinSession(FName sessionName, EOnJoinSess
 	}
 }
 
-void UUndercoverGameInstance::JoinAfterStart(FName sessionName, bool startSuceeded)
+void UTestAWSGameInstance::JoinAfterStart(FName sessionName, bool startSuceeded)
 {
 	if (startSuceeded && bShouldJoin)
 	{

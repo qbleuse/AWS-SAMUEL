@@ -78,7 +78,7 @@ While, by seing the tool used, I very much think that it should not be that much
 
 ## How to use / Get Started
 
-For how to use and get started on using the plugin, see [here](Usage/Configuration.md)
+For how to use and get started on using the plugin, see [here](Documentation/Usage/Configuration.md)
 
 ## Walkthrough
 
@@ -94,6 +94,6 @@ Here is a [list of all the links I used](Documentation/References.md) to do this
 
 ## License
 
-AWS-SAMUEL is licensed under the MIT License, see LICENSE.txt for more information.
+AWS-SAMUEL is licensed under the MIT License, see [LICENSE](LICENSE) for more information.
 
 Long story short, do as you want.

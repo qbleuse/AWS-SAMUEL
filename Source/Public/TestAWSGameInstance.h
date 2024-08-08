@@ -24,7 +24,7 @@ struct FPlayerPersistentInfo
  * 
  */
 UCLASS()
-class UNDERCOVER_API UTestAWSGameInstance : public UGameInstance
+class TESTAWS_API UTestAWSGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 
@@ -36,7 +36,7 @@ class UNDERCOVER_API UTestAWSGameInstance : public UGameInstance
 		virtual void StartGameInstance() override { Super::StartGameInstance();	}
 
 
-		UUndercoverGameInstance();
+		UTestAWSGameInstance();
 
 		/* turns our game instance into a listen server on the level given in parameter. */
 		UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
