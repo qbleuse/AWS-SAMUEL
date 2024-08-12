@@ -103,3 +103,21 @@ Be sure to match the port in the lambdas and in your command when launching your
 
 For how to launch and test with a legacy Gamelift, refer yourself to [AWS's own documentation on the subject](https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html)
 
+
+## Configure SAM to your environment
+
+Also, I use python 3.9 to run the lambdas bu you can change it to uyour own version of python by changing the [template.yaml](../../Plugins/AWSOSS/SAM/template.yaml) file.
+
+```yaml
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Runtime: python3.9 # change this to your prefered version of python
+    Handler: app.lambda_handler
+    Architectures:
+      - x86_64 # equally you may need to change this if you are on a Apple Silicon Mac.
+    # not sure about the Globals commented down here 
+    Timeout: 15 # may seem long but the lambdas sometime take more than 3 seconds, it is to be sure
+```
+
+You can also tweak the requirements.txt files of each lambda to your environment.

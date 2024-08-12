@@ -37,7 +37,7 @@ After getting those two files and putting them in the plugin, you can install th
 
 You may also add the AWSOSS plugin as this is the only thing it really requires to work, outside of the configuration after intalling it.
 
-For this, I invite you to look at [how to use the plugin]().
+For this, I invite you to look at [how to use the plugin](../Usage/Configuration.md).
 
 This is the end for the installation part, good work !
 Take a little break !

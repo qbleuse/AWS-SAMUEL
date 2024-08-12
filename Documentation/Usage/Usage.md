@@ -8,11 +8,11 @@ The only really implemented feature for this OSS Plugin are Gamelift connection.
 This means what changes between a simple interface is the Online Session Interface.
 
 The real method implemented are :
- - Create and Start Session
- - Find Session
- - Join Session
+	- [Create Session / Start Session](#create-session--start-session)
+	- [Find Session](#find-session)
+	- [Join Session](#join-session)
  
-The other feature of the Online Session interface are not implemented or partially implemented (match making for example is not supported).
+The other feature of the Online Session interface are not implemented or partially implemented (matchmaking for example is not supported).
 
 Every other feature of the Online Subsystem will fall back on the OnlineSubSystemNull.
 
@@ -109,9 +109,9 @@ The owner will then be the first to connect to the distant server and be regogni
 
 ## Find Session
 
-The find session method uses the same interface as any OSS, it uses a FOnlineSessionSearch and returns  an array of FOnlineSessionSearchResults.
+The find session method uses the same interface as any OSS, it uses a FOnlineSessionSearch and returns an array of FOnlineSessionSearchResults.
 
-For this, it will request information on all opened Game Session on the associated Gamelift instance.
+For this, it will request information of all opened Game Session on the associated Gamelift instance.
 
 [Here](../../Source/Private/TestAWSGameInstance.cpp#L253) is an example of what the Find method could look like.
 
@@ -136,3 +136,55 @@ FDelegateHandle UTestAWSGameInstance::FindSession(FOnFindSessionsCompleteDelegat
 	return FDelegateHandle();
 }
 ```
+
+Using this you may afterwards use Join Session to connect to said game session.
+
+## Join Session
+
+Join Session request the creation of a player session associated with the game session chosen to connect to it.
+
+The player session is filled up in the game session given by the call back and you may use the ip address and port to connect to the game session.
+
+[Here](../../Source/Private/TestAWSGameInstance.cpp#L273) is an example of calling Join Session:
+
+```cpp
+bool UTestAWSGameInstance::JoinSessionAndTravel(const FOnlineSessionSearchResult& sessionToJoin)
+{
+	const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
+
+	if (sessions.IsValid())
+	{
+		const FUniqueNetIdPtr& netId = GetPrimaryPlayerController()->PlayerState->GetUniqueId().GetUniqueNetId();
+		if (sessions->JoinSession(*netId, NAME_GameSession, sessionToJoin))
+		{
+			return sessions->StartSession(NAME_GameSession);
+		}
+	}
+
+	return false;
+}
+```
+
+
+Then, [here](../../Source/Private/TestAWSGameInstance.cpp#L288) is an example of may look like the callback of join session, to afterwards connect to the server.
+
+```cpp
+void UTestAWSGameInstance::TravelToJoinSession(FName sessionName, EOnJoinSessionCompleteResult::Type joinResult)
+{
+	if (joinResult == EOnJoinSessionCompleteResult::Success)
+	{
+		const IOnlineSessionPtr& sessions = Online::GetSubsystem(GetWorld(), TEXT("AWS"))->GetSessionInterface();
+
+		FString travelURL;
+		FNamedOnlineSession* namedSession = sessions->GetNamedSession(sessionName);
+		if (GetPrimaryPlayerController() && !namedSession->SessionSettings.bIsLANMatch && sessions->GetResolvedConnectString(sessionName, travelURL))
+		{
+			GetPrimaryPlayerController()->ClientTravel(travelURL, ETravelType::TRAVEL_Absolute);
+		}
+	}
+}
+```
+
+If the ip address and port are opened, Unreal does everything for us to connect to the server.
+
+Now, that you understand how to use it, let us see [how to run it](Run.md).
