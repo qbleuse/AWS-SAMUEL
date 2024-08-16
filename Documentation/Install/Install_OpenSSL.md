@@ -1,6 +1,5 @@
 # Installing OpenSSL
 
-
 You may not know what OpenSSL is, if that is the case, I'll redirect you to the [chapter of the walkthrough]() that talks about it.
 
 Otherwise, OpenSSL is trickier to install and choose, as the major problem here is compatibility.

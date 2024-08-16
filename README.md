@@ -62,11 +62,11 @@ While the integration was not on-time for this project, I worked on it afterward
 
 ## What is included
 
-- [An Unreal Engine custom Online SubSystem Plugin, integrating exchange with AWS Gamelift](Plugins/AWSOSS/)
+- [An Unreal Engine custom Online SubSystem Plugin, integrating creating, finding, and joining AWS Gamelift game sessions](Plugins/AWSOSS/)
 - [A SAM local API gateway for local test](Plugins/AWSOSS/SAM/)
 - [Some source files as example to use said Plugin](Source/)
 - [An .ini file with lines to copy to make the Plugin work](Config/DefaultEngine.ini)
-- [A walkthrough explaining how the code works for those who want to go further]()
+- [A walkthrough explaining how the code works for those who want to go further](#walkthrough)
 
 ## How to install
 
@@ -82,7 +82,7 @@ For how to use and get started on using the plugin, see [here](Documentation/Usa
 
 ## Walkthrough
 
-If you want to know how the integration was done, maybe to develop your own version or out of curiosity, it is [this way]().
+If you want to know how the integration was done, maybe to develop your own version or out of curiosity, it is [this way](Documentation/Walkthrough/Design.md).
 
 Once again, this walkthrough will be told from the point of view of a Windows User.
 Also this is aimed towards beginner that never worked on how to connect to computers before (as this was my case when I did this), but I expect Unreal Engine and coding experiences, and will not explain basic programming principles.

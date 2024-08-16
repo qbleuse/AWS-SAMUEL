@@ -4,7 +4,7 @@ To use the AWS OSS Plugin, you must configure some stuff to make it compatible w
 
 Here you are expected to understand the concepts and the inner workings of how AWS connection works.
 
-If you are unfamiliar with it, I invite you to read [this chapter]() of the walkthrough.
+If you are unfamiliar with it, I invite you to read [this chapter](../Walkthrough/Design.md#amazon-web-services) of the walkthrough.
 
 If you already configured your project to work with the plugin, look here to see [some example usage](Usage.md)
 
