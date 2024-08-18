@@ -334,10 +334,10 @@ If we strip all of the "unnecessary", this will become this.
 Here, everything but the client is in the "AWS Cloud".
 Let's see the components of our solution one by one.
 
-- (1) <img src="../Media/Light/Res_User_48_Light.svg" alt="drawing" width="24"/> client and <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway communication.
-
-<picture>
+- (1) <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg">
   <img alt="" src="../Media/Light/Res_User_48_Light.svg">
-</picture>
+</picture> client and <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway communication.
+
+
