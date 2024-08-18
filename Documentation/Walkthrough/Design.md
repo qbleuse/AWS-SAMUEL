@@ -334,6 +334,50 @@ If we strip all of the "unnecessary", this will become this.
 Here, everything but the client is in the "AWS Cloud".
 Let's see the components of our solution one by one.
 
-- (1) <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg"> <img alt="" src="../Media/Light/Res_User_48_Light.svg" width="24"> </picture> client and <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway communication.
+1. <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg"> <img alt="" src="../Media/Light/Res_User_48_Light.svg" width="24"> </picture> client and <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway communication.
 
+AWS is quite strict security-wise, so we cannot directly communicate with the block inside our solution (such as gamelift), to get a server.
+In the case of communicate with a game session directly, you need to ask gamelift to open a public port in one of this fleet to communicate with said client temporarily.
+
+The only access for public connection with AWS is called [API Gateway](https://aws.amazon.com/api-gateway/), which like its name suggests, is a gateway for accessing everything in AWS Cloud, from outside  of it.
+
+API Gateway can be both a Rest or WebSocket API, but what we'll use it as is just a way to communicate with AWS through http requests.
+
+2. <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway to <img src="../Media/Arch_AWS-Lambda_48.svg" alt="drawing" width="24"/> Lambda execution
+
+Unfortunately, we cannot create an event on API Gateway to do all the setup we need for our server then respond the necessary data.
+We'll need to make function and to do it programatically.
+So in our solution, API Gateway is just here to execute the necessary [Lambdas](https://aws.amazon.com/lambda/), wich are functions that can do almost everything inside the AWS Cloud.
+
+As this is suppose to run locally, there will be no consideration for security, but you sould definitely look into it if you intend to ship your solution.
+
+3. <img src="../Media/Arch_AWS-Lambda_48.svg" alt="drawing" width="24"/> Lambdas interacting <img src="../Media/Arch_Amazon-GameLift_48.svg" alt="drawing" width="24"/> with AWS Gamelift
+   
+In the execution of the lambdas, using the tools given by AWS, we will be able to create games sessions, player sessions, and look up in the resources of [Gamelift](https://aws.amazon.com/gamelift/) programatically.
+
+These resources will be formatted as an http response to make it available to the client.
+
+4. <img src="../Media/Arch_Amazon-GameLift_48.svg" alt="drawing" width="24"/> Gamelift initializing instances on its <img src="../Media/Res_Amazon-EC2_Instances_48.svg" alt="drawing" width="24"/> Fleet
+
+Fleet are resources on gamelift, usually synonymous to a server in a region in the world.
+
+For our use case, we define one as "ourselves" (basically redirecting to "localhost"). if you did not do that see [how to make the project run](../Usage/Run.md).
+
+5. <img src="../Media/Res_Amazon-EC2_Instances_48.svg" alt="drawing" width="24"/> Fleet's game session connecting directly with <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg"> <img alt="" src="../Media/Light/Res_User_48_Light.svg" width="24"> </picture> client
+
+After having been assigned a game session, client directly connects to the IP address and port of the server, that is opened for a little amount of time.
+
+In our case, the ip address is localhost (or 127.0.0.1) meaning it redirects our network connection to search on the client's device for the server which should already be opened on a certain port.
+
+This is a cumbersome solution to simply redirects client to a server that is on the same machine, but unfortunately, this is how works connection on AWS.
+And for good reasons, as this system is easily expandable to work on multiple servers worldwide, even if that is outside our scope.
+
+## In details
+
+Now that we've covered the general design of the solution, let's dive into how it works, and cover the three main methods implemented in the Plugin.
+
+- Make the AWSOSS launch http requests to API Gateway
+- Create Session
+- Join Session
+- Find Session
 
