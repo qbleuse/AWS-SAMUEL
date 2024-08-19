@@ -96,8 +96,6 @@ def get_my_fleet_id(body,response):
 		}
 		raise error
 	
-	return 0
-	
 # finding a game session wit no one else in it, and repurpose it with the client's session info
 def repurpose_available_game_session(fleet_id, location, body, response):
 	# trying to find a game session in the game fleet that could be rupurposed to our needs.
@@ -222,7 +220,6 @@ def get_player_session_from_game_session(game_session_id, body):
 		"statusCode": 500,
 		"body": json.dumps(error.response["Error"]["Message"], default = raw_converter).encode("UTF-8")
 		}
-		raise error
 
 def is_game_session_activating(game_session,response):
 	game_session_status = "ACTIVATING"

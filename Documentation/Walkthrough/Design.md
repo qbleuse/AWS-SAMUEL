@@ -376,8 +376,8 @@ And for good reasons, as this system is easily expandable to work on multiple se
 
 Now that we've covered the general design of the solution, let's dive into how it works, and cover the three main methods implemented in the Plugin.
 
-- Make the AWSOSS launch http requests to API Gateway
-- Create Session
-- Join Session
+- [Make the AWSOSS launch http requests to API Gateway](AWSOSS.md)
+- [Create Session](CreateSession.md)
 - Find Session
+- Join Session
 
