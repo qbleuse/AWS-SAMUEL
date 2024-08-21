@@ -48,7 +48,6 @@ The rest is automatic from the setup.
 
 ![legacy gamelift diagram](../Media/legacy_gamelift_architecture.png)
 
-
 1. <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg"> <img alt="" src="../Media/Light/Res_User_48_Light.svg" width="24"> </picture> client and <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> API Gateway's back and forth is done through http requests between the OSS (using the URL's to point to SAM's API Gateway).
 
 2. <img src="../Media/Arch_Amazon-API-Gateway_48.svg" alt="drawing" width="24"/> SAM API Gateway will use Docker to initialize its <img src="../Media/Arch_AWS-Lambda_48.svg" alt="drawing" width="24"/> Lambdas and execute them
@@ -66,9 +65,9 @@ Setup is also faster, but less close to actual implementation when wanting to sh
 
 We'll go over the same things as for gamelift anywhere, which are:
 
-- client's side http request
-- the lambda execution
-- the connection between the client and server
+- [client's side http request](#start-session-request-method)
+- [the lambda execution](#create-session-lambda)
+- [the connection between the client and server](#start-session-response-method)
 
 Only lambdas change when using legacy or anywhere solutions.
 
