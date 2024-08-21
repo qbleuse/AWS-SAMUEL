@@ -338,6 +338,7 @@ Expected use would to make a session menu by listing game session to allow user 
 
 > [!WARNING]
 > It may seem counter intuitive, but while I have tested this solution and it worked, I could not test that find sessions worked with multiple sessions, so there may be a problem.
+
 > [!NOTE]
 > This is very much out of the scope, but it may be preferable to not send *all data* about your game sessions to your client, as it could be used maliciously.
 > You should only send what you need.

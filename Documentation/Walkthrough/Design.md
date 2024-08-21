@@ -378,6 +378,5 @@ Now that we've covered the general design of the solution, let's dive into how i
 
 - [Make the AWSOSS launch http requests to API Gateway](AWSOSS.md)
 - [Create Session](CreateSession.md)
-- Find Session
-- Join Session
-
+- [Find Session](FindSession.md)
+- [Join Session](JoinSessiond.md)

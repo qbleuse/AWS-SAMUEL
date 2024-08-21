@@ -738,4 +738,4 @@ The cool thing about this implementation is that it works for distant connection
 Doing all this, we were able to create a distant game session on the AWS Cloud and a player session to connect client to the server.
 
 But now, that is a multiplayer session, so we want other player to be able to join in, and for this, you need to be able to find game sessions.
-[Let see how to do this]().
+[Let see how to do this](FindSession.md).
