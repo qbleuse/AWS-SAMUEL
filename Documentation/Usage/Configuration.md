@@ -42,7 +42,8 @@ The integration supports both legacy gamelift SDK and latest, configuration chan
 
 In both, you need to configure the API Gateway URI and the name of the lambda that the plugin will use.
 
-Note that, do to this configuration step, the plugin can be used with your own distant URI and lambdas, as long as it uses API gateway and that the responses are the same.
+> [!NOTE]
+> do to this configuration step, the plugin can be used with your own distant URI and lambdas, as long as it uses API gateway and that the responses are the same.
 
 An example of lines of configuration of the AWS OSS can be seen in the [DefaultEngine.ini](Config/DefaultEngine.ini) file in the repository.
 
@@ -60,7 +61,8 @@ JoinSessionURI=/join_session
 
 Here the APIGateway URI redirects to localhost, so the local machine at port 3000, wich is the port that uses AWS SAM when it activates its own API Gateway.
 
-Note that you may change the port bith in the config file, and in AWS SAM if you need to.
+> [!NOTE]
+> you may change the port bit in the config file, and in AWS SAM if you need to.
 
 In latest SDK, local testing relies on Gamelift Anywhere, you then need to be able to access internet and communicate with gamelift in the region you configured your local test.
 

@@ -5,16 +5,16 @@ With the Online Subsystem able to send http request, let us see how we can make 
 ## Table of Contents
 
 - [Create Session](#create-session)
-  - [Table of Contents](#table-of-contents)
-  - [Understand the Solution's Architecture](#understand-the-solutions-architecture)
-    - [Gamelift Anywhere Architecture](#gamelift-anywhere-architecture)
-    - [Legacy Gamelift Architecture](#legacy-gamelift-architecture)
-  - [Create Session method](#create-session-method)
-  - [Start Session Request method](#start-session-request-method)
-  - [Create Session lambda](#create-session-lambda)
-    - [Create Session Anywhere SDK](#create-session-anywhere-sdk)
-    - [Create Session legacy SDK](#create-session-legacy-sdk)
-  - [Start Session Response method](#start-session-response-method)
+	- [Table of Contents](#table-of-contents)
+	- [Understand the Solution's Architecture](#understand-the-solutions-architecture)
+		- [Gamelift Anywhere Architecture](#gamelift-anywhere-architecture)
+		- [Legacy Gamelift Architecture](#legacy-gamelift-architecture)
+	- [Create Session method](#create-session-method)
+	- [Start Session Request method](#start-session-request-method)
+	- [Create Session lambda](#create-session-lambda)
+		- [Create Session Anywhere SDK](#create-session-anywhere-sdk)
+		- [Create Session legacy SDK](#create-session-legacy-sdk)
+	- [Start Session Response method](#start-session-response-method)
 
 ## Understand the Solution's Architecture
 

@@ -7,6 +7,14 @@ Let see how we can list up the created game sessions for our user to choose and 
 
 - [Find Session](#find-session)
   - [Table of contents](#table-of-contents)
+  - [The solution's architecture](#the-solutions-architecture)
+    - [Gamelift Anywhere Architecture](#gamelift-anywhere-architecture)
+    - [Legacy Gamelift Architecture](#legacy-gamelift-architecture)
+  - [Find Session Request method](#find-session-request-method)
+  - [Find Sessions Lambda](#find-sessions-lambda)
+    - [Find Sessions Anywhere SDK](#find-sessions-anywhere-sdk)
+    - [Find Sessions Legacy SDK](#find-sessions-legacy-sdk)
+  - [Find Sessions Response Method](#find-sessions-response-method)
 
 ## The solution's architecture
 
