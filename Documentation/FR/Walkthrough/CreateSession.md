@@ -38,8 +38,8 @@ L'architecture est donc relativement complexe à mettre en place, mais pas si di
 
 Nous allons passer en revue :
 
-- [la requête HTTP côté client](#)
-- [l'exécution de la lambda](#lambda-create-session)
+- [la requête HTTP côté client](#méthode-start-session-request)
+- [l'exécution de la lambda](#lambda-de-création-de-session)
 - [la connexion entre le client et le serveur](#méthode-start-session-response)
 
 Le reste est automatique à partir de la configuration.
