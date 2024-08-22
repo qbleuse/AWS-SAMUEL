@@ -43,7 +43,7 @@ The integration supports both legacy gamelift SDK and latest, configuration chan
 In both, you need to configure the API Gateway URI and the name of the lambda that the plugin will use.
 
 > [!NOTE]
-> do to this configuration step, the plugin can be used with your own distant URI and lambdas, as long as it uses API gateway and that the responses are the same.
+> You may use your own distant URI and lambdas, if you have some, as long as it uses API gateway and that the responses are the same.
 
 An example of lines of configuration of the AWS OSS can be seen in the [DefaultEngine.ini](Config/DefaultEngine.ini) file in the repository.
 
@@ -62,7 +62,7 @@ JoinSessionURI=/join_session
 Here the APIGateway URI redirects to localhost, so the local machine at port 3000, wich is the port that uses AWS SAM when it activates its own API Gateway.
 
 > [!NOTE]
-> you may change the port bit in the config file, and in AWS SAM if you need to.
+> you may change the port in the config file, and in AWS SAM if you need to.
 
 In latest SDK, local testing relies on Gamelift Anywhere, you then need to be able to access internet and communicate with gamelift in the region you configured your local test.
 
@@ -90,7 +90,7 @@ FindSessionURI=/find_session_local
 JoinSessionURI=/join_session_local
 ```
 
-Lambdas for legacy are different as not all features of Gamelift in local legacy.
+Lambdas for legacy are different as not all features of Gamelift in legacy SDK.
 
 Also you will need to configure in each lambda the gamelift local endpoint (it may be done as a AWS SAM system wide variable, but I prefered putting it in lambdas):
 
@@ -101,14 +101,14 @@ game_lift = boto3.client("gamelift", endpoint_url='http://host.docker.internal:9
 
 Be sure to match the port in the lambdas and in your command when launching your legacy local gamelift.
 
-"http://host.docker.internal" redirects to the machine locallhost from inside docker on Windows, it allows us to connect to the gamelift legacy running on our machine. it may be different on other OS's.
+"http://host.docker.internal" redirects to the machine localhost from inside docker on Windows, it allows us to connect to the gamelift legacy running on our machine. it may be different on other OS's.
 
 For how to launch and test with a legacy Gamelift, refer yourself to [AWS's own documentation on the subject](https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html)
 
 
 ## Configure SAM to your environment
 
-Also, I use python 3.9 to run the lambdas bu you can change it to uyour own version of python by changing the [template.yaml](../../Plugins/AWSOSS/SAM/template.yaml) file.
+Also, I use python 3.9 to run the lambdas but you can change it to your own version of python, or to another programming language, by changing the [template.yaml](../../Plugins/AWSOSS/SAM/template.yaml) file.
 
 ```yaml
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
