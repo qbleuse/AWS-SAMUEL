@@ -159,7 +159,7 @@ did you add the GameliftServerSDK plugin in your .uproject and enabled it ? did 
 
  - The server compiled but it crashes and won't run :
    
-Did the OpenSSL libraries and gamelift libraries (dynamic and static libraries), are in the packaged server ?
+Are the OpenSSL libraries and gamelift libraries (dynamic and static libraries) in the packaged server ?
 
 The InitSDK command may fail for now but it won't after setting upthe local gamelift.
 
