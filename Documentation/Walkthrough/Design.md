@@ -2,15 +2,15 @@
 
 ## The Design Philosophy
 
-The idea behind the original plugin was to make something "easy and fast" : as any good programmer, I weas lazy.
+The idea behind the original plugin was to make something "easy and fast" : as any good programmer, I was lazy.
 
-But I wanted a tool that could be used by anyone that knows a bit Unreal.
+But I wanted a tool that could be used by anyone that knows Unreal a bit.
 
-So I chose to try to integrate Gamelift connection (that until then, tutorial showed only how to make it with distant gamelift, and doing it directly), by using the familiar Online SubSystem Interface, and make it use local solution (like Gamelift Anywhere, or at the time, the old SDK, as this was the onlly one out).
+So I chose to try to integrate Gamelift connection (that until then, tutorial showed only how to make it with distant gamelift, and doing it directly), by using the familiar Online SubSystem Interface, and make it use local solution (like Gamelift Anywhere, or at the time the legacy SDK, as this was the only one out).
 
-Also, It is written on the README, but for the school project, I had no choice but to use AWS, and we did not have credit, so all server-side development, needed to be done locally, which is what motivated for the development of a locally tested, but easily server reproductible (when we would have the credits) setup.
+Also, It is written on the README, but for the school project, I had no choice but to use AWS, and we did not have credit, so all server-side development, needed to be done locally, which is what motivated for the development of a locally tested, but easily server reproductible (for when we would have the credits) setup.
 
-Let us go over and present the solution for those who might not know
+Let us go over and present the tools for the solution
 
 ## Unreal's Online SubSystem
 
@@ -207,7 +207,7 @@ private:
 
 Simple enough. Everything is overriden and all the interface for the features exists in the class.
 
-A lot of platform have their implementation : Epic Online Services (arguably the better working one), Steam (working for most of the most important, but buggy on some features), IOS, Android...
+A lot of platform have their implementation : Epic Online Services (arguably the better working one), Steam (working for most of what is important, but buggy on some features), IOS, Android...
 
 But then, if all those platforms have implementation, AWS should have one, right ?
 The answer is yes ! The Amazon OSS exists, let's take a look at it.
@@ -349,7 +349,7 @@ Unfortunately, we cannot create an event on API Gateway to do all the setup we n
 We'll need to make function and to do it programatically.
 So in our solution, API Gateway is just here to execute the necessary [Lambdas](https://aws.amazon.com/lambda/), wich are functions that can do almost everything inside the AWS Cloud.
 
-As this is suppose to run locally, there will be no consideration for security, but you sould definitely look into it if you intend to ship your solution.
+As this is supposed to run locally, there will be no consideration for security, but you sould definitely look into it if you intend to ship your solution.
 
 3. <img src="../Media/Arch_AWS-Lambda_48.svg" alt="drawing" width="24"/> Lambdas interacting <img src="../Media/Arch_Amazon-GameLift_48.svg" alt="drawing" width="24"/> with AWS Gamelift
    
