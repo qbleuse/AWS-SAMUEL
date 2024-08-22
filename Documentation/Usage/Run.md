@@ -161,11 +161,12 @@ did you add the GameliftServerSDK plugin in your .uproject and enabled it ? did 
    
 Are the OpenSSL libraries and gamelift libraries (dynamic and static libraries) in the packaged server ?
 
-The InitSDK command may fail for now but it won't after setting upthe local gamelift.
+The InitSDK command may fail for now but it won't after setting up gamelift.
 
 ## Setting up a Local Gamelift
 
-There is two choices for gamelift tests : legacy and new SDK, the shown Game Instance code was made with new SDK in mind, but should work with legacy.
+There is two choices for gamelift tests : legacy and new SDK. 
+The shown Game Instance code was made with new SDK in mind, but should work with legacy.
 
 There is a few differences to set up between both methods :
 
@@ -175,9 +176,9 @@ It is the easiest to set up between the both methods, as it is also more limited
 
 Most of the method is explained in [AWS's Documentation](https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html).
 
-You will need to download Java to run local gamelift, and run it.
+You will need to download Java to run local gamelift.
 
-Then start the packaged game server, you won't need to give arguments to run the server, it should be able to find gamelift buy itself locally.
+Then start the packaged game server, you won't need to give arguments to run the server, it should be able to find gamelift by itself.
 
 If InitSDK fails with the GameInstance code and no arguments, then replace the code with a call to
 
@@ -189,8 +190,8 @@ If you are using legacy and see that InitSDK succeeded, your packaged server bui
 
 ### Set up new SDK local Gamelift
 
-Setting up the new SDK's local gamelift is much more complicated as it relies on Gamelift Anywhere, wich can actually work in production.
-It then requires a similar amount of work to set up to something that could be in production.
+Setting up the new SDK's local gamelift is much more complicated as it relies on Gamelift Anywhere, which can actually work in production.
+It then requires the same amount of work to set up than something that could be in production.
 
 It is fairly well explained and described in [AWS's Documentation](https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing.html), but we'll go through it together.
 
@@ -198,7 +199,7 @@ it uses [AWS-CLI](https://aws.amazon.com/cli/) so if you did not install it befo
 
 First, [you need to create a location](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html#fleet-anywhere-location).
 For this we'll use te AWS Console, in Gamelift section.
-Make sure you are in the right location when you do this (as Gamelift anywhere can redirect everywhere, but the public server taht redirects can only be in some locations)
+Make sure you are in the right region when you do this (as Gamelift anywhere can redirect everywhere, but the public server that redirects can only be in some regions)
 
 - Click on "Create Location"
 
@@ -253,7 +254,7 @@ You can also, if you want to, choose to use your public ip and do port forwardin
 
 Now that your "compute" is registered, erverything is set up to actually use and run the server.
 
-Ecery time you will want to run a server with this new SDK, you will need tyo ask for an authentification key, for security purposes.
+Every time you will want to run a server with this new SDK, you will need to ask for an authentification token, for security purposes.
 
 The command looks like that :
 
@@ -306,7 +307,7 @@ sam local start-api --container-host-interface 0.0.0.0 --debug
 
 It launches sam on the local host, by creating container on docker.
 
-Don't forget to build the lambda's image beforehand with sam build command.
+Don't forget to build the lambda's image beforehand with sam local build command.
 
 Once it is properly launched, it should look like this in command line and in Docker:
 
