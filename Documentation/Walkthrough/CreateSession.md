@@ -34,7 +34,7 @@ Firstly, let's review how the solution is architected for both Gamelift Anywhere
 
 5. <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_Client_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_Client_48_Light.svg"> <img alt="" src="../Media/Light/Res_Client_48_Light.svg" width="24"> </picture> server then gets connection to the same machine's  <picture> <source media="(prefers-color-scheme: dark)" srcset="../Media/Dark/Res_User_48_Dark.svg"> <source media="(prefers-color-scheme: light)" srcset="../Media/Light/Res_User_48_Light.svg"> <img alt="" src="../Media/Light/Res_User_48_Light.svg" width="24"> </picture> client on a different port
 
-The architecture is then fairly cumbersome to setup, but not that difficult to run when everyhting is setup.
+The architecture is then fairly cumbersome to setup, but not that difficult to run when everything is setup.
 
 What we'll go over is:
 
@@ -152,9 +152,9 @@ bool FOnlineSessionAWS::CreateSession(int32 HostingPlayerNum, FName SessionName,
 }
 ```
 
-We don't do anything as when creating this session, while it has not started, the session is still in "writable mode" where user can change the data inside.
+We don't do anything when creating this session object, while it has not started, the session is still in "writable mode" where user can change the data inside.
 
-This is why we wait for the erquest to start the session before actually creating the session on server's side.
+This is why we wait for the request to start the session before actually creating the session on server's side.
 
 Actually, very few datas are actually supported by this implementation:
 
@@ -263,7 +263,7 @@ bool FOnlineSessionAWS::StartSession(FName SessionName)
 First check if it is a LAN session and fallback if it is, and also check if we actually can start the session.
 
 If we can, we create the body of an http request.
-We choose a POST request, as we need to send the session's data to Gamel;ift for it to create the proper game session.
+We choose a POST request, as we need to send the session's data to Gamelift for it to create the proper game session.
 
 [Here](../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSubsystemAWS.cpp#L61) is how we create the http requests body
 
@@ -287,7 +287,7 @@ IAWSHttpRequest FOnlineSubsystemAWS::MakeRequest(const FString& RequestURI, cons
 
 ```
 
-The API Gateway works with multiple content types, but it is fairly common to use json, and as Unreal has a Json formatter library, this is convenient.
+The API Gateway works with multiple content types, but it is fairly common to use json, and as Unreal has a json formatter library, this is convenient.
 
 [The definition](../../Plugins/AWSOSS/Source/AWSOSS/Public/OnlineSubsystemAWS.h#L22) of the http request is fairly simple, it is just a SharedRef for the actual object.
 
@@ -296,7 +296,7 @@ The API Gateway works with multiple content types, but it is fairly common to us
 typedef TSharedRef<class IHttpRequest, ESPMode::ThreadSafe> IAWSHttpRequest;
 ```
 
-Then we just need to fill up the content of our json that will be processed by the lambda (we make the senfding and receiving end, so we have no rules to follow in terms of naming)
+Then we just need to fill up the content of our json that will be processed by the lambda (we make the sending and receiving end, so we have no rules to follow in terms of naming)
 
 ```cpp
     /* the actual content of the request */
@@ -406,9 +406,9 @@ def lambda_handler(event, context):
 
 There's quite a lot to cover !
 
-Firstly, for the import, some you may know, but boto3 and botocore must sound new : this is because this is the python package for talking programatically with AWS Cloud system in python.
+Firstly, for the import, boto3 and botocore must sound new : this is because it is the python package for talking programatically with AWS Cloud system in python.
 
-As you may see, I take out an interface from boto3, which is the only one that we really need : the gamelift interface.
+As you may have seen, I take out an interface from boto3, which is the only one that we really need : the gamelift interface.
 
 In this lambda we need to do two things
 
@@ -535,7 +535,7 @@ Once it is called, the state change on Gamelift's side, allowing us to continue 
 
 The downside is that it takes a few second for the Gamelift to send the game session creation method to the server and the server, that is not on the AWS cloud, to answer it back.
 
-If we were to do it properly, different lambda should handle those interaction, but for the sake of simplicity and brevety, we do everything in a single lambda, which needs then a longer timeout than the default three seconds.
+If we were to do it properly, different lambda should handle those interaction, but for the sake of simplicity and brevity, we do everything in a single lambda, which needs then a longer timeout than the default three seconds.
 
 Once we have an active game session, we just have to create and give back the player session to the client.
 
@@ -697,7 +697,7 @@ That's what is [ProcessHttpRequest()](../../Plugins/AWSOSS/Source/AWSOSS/Private
 
 After it we just get back the data from the response (we know that we get back the connection info), and create a Session Info out of it.
 
-There is no much more than that.
+This is it.
 
 The only thing necessary is for the user to then ask for connection using the session ifo for the client to connect to the server, like it is pictured in the [callback method of Start Session in the Game Instance](../../Source/Private/TestAWSGameInstance.cpp#L303)
 
@@ -737,5 +737,5 @@ The cool thing about this implementation is that it works for distant connection
 
 Doing all this, we were able to create a distant game session on the AWS Cloud and a player session to connect client to the server.
 
-But now, that is a multiplayer session, so we want other player to be able to join in, and for this, you need to be able to find game sessions.
+But now, that it is a multiplayer session, so we want other player to be able to join in, and for this, you need to be able to find game sessions.
 [Let see how to do this](FindSession.md).
