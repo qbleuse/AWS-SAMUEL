@@ -89,7 +89,7 @@ void FAWSOSSModule::ShutdownModule()
 ```
 
 > [!NOTE]
-> the factory is newed and deleted, meaning it is not part of the Garbage Collection.
+> The factory is newed and deleted, meaning it is not part of the Garbage Collection.
 
 Otherwise, I think it is pretty straightforward ; creating the OSS, initializing it, and registering it if it succeeded.
 
