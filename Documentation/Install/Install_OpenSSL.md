@@ -4,10 +4,10 @@ You may not know what OpenSSL is, if that is the case, I'll redirect you to the 
 
 Otherwise, OpenSSL is trickier to install and choose, as the major problem here is compatibility.
 
-Both Gamelift and Unreal uses OpenSSL, but depending on what version of the Engine you use, the version of OpenSSL used may defer.
+Both Gamelift and Unreal uses OpenSSL, but depending on what version of the Engine you use, the version of OpenSSL used may differ.
 It should always be better to use the latest version of OpenSSL for security purposes, but for compatibility, we may not.
 I actually think using another version should work, but the problem is that while compiling may work, packaging of the Engine may not because of this.
-Or at least you may need to add the library by hand.
+Or at least you may need to add the libraries yourself.
 
 To verify what version of OpenSSL your version of UE uses, you may look in [Engine/Source/ThirdParty/OpenSSL](Engine/Source/ThirdParty/OpenSSL).
 
