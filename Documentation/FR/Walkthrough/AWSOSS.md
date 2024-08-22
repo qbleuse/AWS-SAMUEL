@@ -345,3 +345,47 @@ Celles-ci sont nécessaires pour être ajoutées à l'URL globale de l'API Gatew
 
 Pour [les initialiser](../../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSessionInterfaceAWS.cpp#L72), nous faisons de même que dans l'OnlineSubsystem.
 
+```cpp
+FOnlineSessionAWS::FOnlineSessionAWS(FOnlineSubsystemAWS* InSubsystem) :
+    AWSSubsystem(InSubsystem),
+    CurrentSessionSearch(nullptr),
+    SessionSearchStartInSeconds(0)
+{
+    GConfig->GetString(TEXT("OnlineSubsystemAWS"), TEXT("StartSessionURI"), StartSessionURI, GEngineIni);
+    GConfig->GetString(TEXT("OnlineSubsystemAWS"), TEXT("FindSessionURI"), FindSessionURI, GEngineIni);
+    GConfig->GetString(TEXT("OnlineSubsystemAWS"), TEXT("JoinSessionURI"), JoinSessionURI, GEngineIni);
+
+
+    IOnlineSessionPtr nullSession = InSubsystem->GetLANSessionInterface();
+
+    nullSession->OnCancelFindSessionsCompleteDelegates.AddLambda([this](bool succeeded) { TriggerOnCancelFindSessionsCompleteDelegates(succeeded); });
+    nullSession->OnCancelMatchmakingCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnCancelMatchmakingCompleteDelegates(name, succeeded); });
+    nullSession->OnCreateSessionCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnCreateSessionCompleteDelegates(name, succeeded); });
+    nullSession->OnDestroySessionCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnDestroySessionCompleteDelegates(name, succeeded); });
+    nullSession->OnEndSessionCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnEndSessionCompleteDelegates(name, succeeded); });
+    if (nullSession->OnFindFriendSessionCompleteDelegates)
+        nullSession->OnFindFriendSessionCompleteDelegates->AddLambda([this](int32 localUserNb, bool succeeded, const TArray<FOnlineSessionSearchResult>& result) { TriggerOnFindFriendSessionCompleteDelegates(localUserNb, succeeded, result); });
+    nullSession->OnFindSessionsCompleteDelegates.AddLambda([this](bool succeeded) { TriggerOnFindSessionsCompleteDelegates(succeeded); });
+    nullSession->OnJoinSessionCompleteDelegates.AddLambda([this](FName name, EOnJoinSessionCompleteResult::Type result) { TriggerOnJoinSessionCompleteDelegates(name, result); });
+    nullSession->OnMatchmakingCompleteDelegates.AddLambda([this](FName name, bool success) { TriggerOnMatchmakingCompleteDelegates(name, success); });
+    nullSession->OnPingSearchResultsCompleteDelegates.AddLambda([this](bool success) { TriggerOnPingSearchResultsCompleteDelegates(success); });
+    nullSession->OnQosDataRequestedDelegates.AddLambda([this](FName name) { TriggerOnQosDataRequestedDelegates(name); });
+    nullSession->OnRegisterPlayersCompleteDelegates.AddLambda([this](FName name, const TArray< FUniqueNetIdRef >& PlayersArray, bool succeeded) { TriggerOnRegisterPlayersCompleteDelegates(name, PlayersArray, succeeded); });
+    nullSession->OnSessionCustomDataChangedDelegates.AddLambda([this](FName name, const FOnlineSessionSettings& SessionSettings) { TriggerOnSessionCustomDataChangedDelegates(name, SessionSettings); });
+    nullSession->OnSessionFailureDelegates.AddLambda([this](const FUniqueNetId& netId, ESessionFailure::Type type) { TriggerOnSessionFailureDelegates(netId, type); });
+    nullSession->OnSessionInviteReceivedDelegates.AddLambda([this](const FUniqueNetId& UserId, const FUniqueNetId& FromId, const FString& AppId, const FOnlineSessionSearchResult& InviteResult) { TriggerOnSessionInviteReceivedDelegates(UserId,FromId,AppId,InviteResult); });
+    nullSession->OnSessionParticipantRemovedDelegates.AddLambda([this](FName name, const FUniqueNetId& netId) { TriggerOnSessionParticipantRemovedDelegates(name, netId); });
+    nullSession->OnSessionParticipantsChangeDelegates.AddLambda([this](FName name, const FUniqueNetId& netId, bool succeeds) { TriggerOnSessionParticipantsChangeDelegates(name, netId, succeeds); });
+    nullSession->OnSessionParticipantSettingsUpdatedDelegates.AddLambda([this](FName name, const FUniqueNetId& netId, const FOnlineSessionSettings& SessionSettings) { TriggerOnSessionParticipantSettingsUpdatedDelegates(name, netId, SessionSettings); });
+    nullSession->OnSessionSettingsUpdatedDelegates.AddLambda([this](FName name, const FOnlineSessionSettings& SessionSettings) { TriggerOnSessionSettingsUpdatedDelegates(name, SessionSettings); });
+    nullSession->OnSessionUserInviteAcceptedDelegates.AddLambda([this](const bool bWasSuccessful, const int32 ControllerId, FUniqueNetIdPtr UserId, const FOnlineSessionSearchResult& InviteResult) { TriggerOnSessionUserInviteAcceptedDelegates(bWasSuccessful, ControllerId, UserId, InviteResult); });
+    nullSession->OnStartSessionCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnStartSessionCompleteDelegates(name, succeeded); });
+    nullSession->OnUnregisterPlayersCompleteDelegates.AddLambda([this](FName name, const TArray< FUniqueNetIdRef >& netId, bool succeeded) { TriggerOnUnregisterPlayersCompleteDelegates(name, netId, succeeded); });
+    nullSession->OnUpdateSessionCompleteDelegates.AddLambda([this](FName name, bool succeeded) { TriggerOnUpdateSessionCompleteDelegates(name, succeeded); });
+
+}
+```
+
+Nous faisons également en sorte que chaque callback de l'interface Null appelle également notre interface. Cela permet à l'utilisateur d'utiliser cette interface pour les connexions LAN comme pour les connexions distantes.
+
+Notre plugin OnlineSubsystem peut maintenant envoyer des requêtes HTTP, voyons comment il peut [créer une session de jeu distante](CreateSession.md).
