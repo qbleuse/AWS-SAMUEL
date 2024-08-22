@@ -51,7 +51,7 @@ Pour accéder aux informations des sessions de jeu sur Gamelift, nous devons env
 
 La méthode de requête sera très similaire à celle que nous avons vue pour StartSession, car la logique est assez similaire.
 
-[Voici](../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSessionInterfaceAWS.cpp#L487) la méthode.
+[Voici](../../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSessionInterfaceAWS.cpp#L487) la méthode.
 
 ```cpp
 bool FOnlineSessionAWS::FindSessions(int32 SearchingPlayerNum, const TSharedRef<FOnlineSessionSearch>& SearchSettings)
