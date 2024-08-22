@@ -207,7 +207,7 @@ FindSessionURI=/find_session
 JoinSessionURI=/join_session
 ```
 
-That allows for configuration of other URLs in different scenarios, and also is similar to the way you need to confgigure OSS anyway.
+That allows for configuration of other URLs in different scenarios, and also is similar to the way you need to configure OSS anyway.
 
 As for the URL, the one problem of the implementation is that it uses a single URL for all calls to AWS, whereas in a real implementation, you may want to send a GET request to this first URL to get your own regions's URL, to get better connectivity.
 
@@ -217,7 +217,7 @@ And in this method we also create, and thus, initialize our Session Interface.
 
 The Subsystem inherits from OnlineSubsystemNull, thus has two session interface : AWSSessionInterface and SessionInterfaceNull.
 
-The AWSSessionInterface has then two roles : being able to send http requests with the Online Subsysytem resource if the connection is distant, or to fallback on Session Interface Null.
+The AWSSessionInterface has then two roles : being able to send http requests with the Online Subsysytem resource if the connection is distant, or to fallback on Session Interface Null if it is a LAN connection.
 
 Let us see the [definition](../../Plugins/AWSOSS/Source/AWSOSS/Public/OnlineSessionInterfaceAWS.h#L33) for the class.
 
@@ -338,7 +338,7 @@ public:
 ```
 
 It is mainly a copy paste of the SessionInterfaceNull definition.
-All the methods are overriden for the session to work properly, and most fallback on the Null interface, or implements the same logic than the Null interface instide the AWS interface.
+All the methods are overriden for the session to work properly, and most fallback on the Null interface, or implements the same logic than the Null interface inside the AWS interface.
 
 We can see there are the member URIs.
 These are needed to append to the global API gateway url to call the right lambda for the called method.
