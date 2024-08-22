@@ -124,4 +124,4 @@ Globals:
 
 You can also tweak the requirements.txt files of each lambda to your environment.
 
-Now we can try to [Run the server](Run.md).
+Now let see how you may [integrate the Plugin to your project](Usage.md).
