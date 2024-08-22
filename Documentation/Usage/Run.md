@@ -149,11 +149,16 @@ public class TestAWSServerTarget : TargetRules //Change this line according to t
 
 You may have problems packaging the game or launching the executable.
 Here is a list of problems and some solutions : 
- - Unreal's Automation Tool does not work or Unreal Build Tool won't run
+ - Unreal's Automation Tool does not work or Unreal Build Tool won't run :
+   
 did you compile the Engine? did you compile the associated tools ?
- - The line in the Game Instance will not compile
+
+ - The line in the Game Instance will not compile :
+   
 did you add the GameliftServerSDK plugin in your .uproject and enabled it ? did you add it in your .Build.cs ?
- - The server compiled but it crashes and won't run.
+
+ - The server compiled but it crashes and won't run :
+   
 Did the OpenSSL libraries and gamelift libraries (dynamic and static libraries), are in the packaged server ?
 
 The InitSDK command may fail for now but it won't after setting upthe local gamelift.
