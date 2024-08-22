@@ -25,7 +25,7 @@ En particulier, comme indiqué dans [la documentation AWS](https://docs.aws.amaz
 //Obtenir le module en premier.
 	FGameLiftServerSDKModule* gameLiftSdkModule = &FModuleManager::LoadModuleChecked<FGameLiftServerSDKModule>(FName("GameLiftServerSDK"));
 
-	//Définir les paramètres du serveur pour une flotte GameLift Anywhere. Ceux-ci ne sont pas nécessaires pour une flotte EC2 gérée par GameLift.
+	//Définir les paramètres du serveur pour une fleet GameLift Anywhere. Ceux-ci ne sont pas nécessaires pour une fleet EC2 gérée par GameLift.
 	FServerParameters serverParameters;
 
 	//AuthToken retourné par l'API "aws gamelift get-compute-auth-token". Notez que cela expirera et nécessitera un nouvel appel à l'API après 15 minutes.
@@ -40,7 +40,7 @@ En particulier, comme indiqué dans [la documentation AWS](https://docs.aws.amaz
 		UE_LOG(GameServerLog, Log, TEXT("HOST_ID: %s"), *serverParameters.m_hostId)
 	}
 
-	//L'ID de la flotte Anywhere.
+	//L'ID de la fleet Anywhere.
 	if (FParse::Value(FCommandLine::Get(), TEXT("-fleetid="), serverParameters.m_fleetId))
 	{
 		UE_LOG(GameServerLog, Log, TEXT("FLEET_ID: %s"), *serverParameters.m_fleetId)
@@ -199,7 +199,7 @@ C'est bien expliqué et décrit dans [la documentation d'AWS](https://docs.aws.a
 
 Il utilise [AWS-CLI](https://aws.amazon.com/cli/), donc si vous ne l'avez pas installé auparavant, veuillez le faire au préalable.
 
-Tout d'abord, [vous devez créer un emplacement](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html#fleet-anywhere-location).
+Tout d'abord, [vous devez créer une location](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html#fleet-anywhere-location).
 Pour cela, nous utiliserons la Console AWS, dans la section Gamelift.
 Assurez-vous d'être dans la bonne région lorsque vous faites cela (car Gamelift Anywhere peut rediriger partout, mais le serveur public qui redirige ne peut être que dans certaines régions)
 
@@ -207,15 +207,15 @@ Assurez-vous d'être dans la bonne région lorsque vous faites cela (car Gamelif
 
 ![CreateLocationPart1](../../Media/Create_Location_Part1.png)
 
-- Donnez un nom à votre emplacement puis cliquez sur "Create"
+- Donnez un nom à votre location puis cliquez sur "Create"
 
 ![CreateLocationPart2](../../Media/Create_Location_Part2.png)
 
-Vous avez maintenant créé votre emplacement personnalisé.
+Vous avez maintenant créé votre location personnalisé.
 
-Ensuite, nous allons [créer une fleet](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html#fleet-anywhere-create) associée à l'emplacement.
+Ensuite, nous allons [créer une fleet](https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-anywhere.html#fleet-anywhere-create) associée à l'location.
 
-- Allez sur la page des flottes et cliquez sur "Create"
+- Allez sur la page des fleets et cliquez sur "Create"
 
 ![CreateFleetPart1](../../Media/Create_Fleet_Part1.png)
 
@@ -223,11 +223,11 @@ Ensuite, nous allons [créer une fleet](https://docs.aws.amazon.com/gamelift/lat
 
 ![CreateFleetPart2](../../Media/Create_Fleet_Part2.png)
 
-- Donnez un nom à votre flotte puis cliquez sur "Next"
+- Donnez un nom à votre fleet puis cliquez sur "Next"
 
 ![CreateFleetPart3](../../Media/Create_Fleet_Part3.png)
 
-- Choisissez votre nouvel emplacement créé puis cliquez sur "Next"
+- Choisissez votre nouvelle location créé puis cliquez sur "Next"
 
 ![CreateFleetPart4](../../Media/Create_Fleet_Part4.png)
 
@@ -235,7 +235,7 @@ Ensuite, nous allons [créer une fleet](https://docs.aws.amazon.com/gamelift/lat
 
 ![CreateFleetPart5](../../Media/Create_Fleet_Part5.png)
 
-Vous avez maintenant créé une flotte à laquelle vous pouvez vous connecter.
+Vous avez maintenant créé une fleet à laquelle vous pouvez vous connecter.
 
 ![CreateFleetPart6](../../Media/Create_Fleet_Part6.png)
 
@@ -244,12 +244,12 @@ Nous devons maintenant [enregistrer notre machine locale](https://docs.aws.amazo
 ```sh
 aws gamelift register-compute \
     --compute-name TestAWSCompute \
-    --fleet-id  fleet-[l'ID de la flotte que vous avez obtenu à l'étape précédente]\
+    --fleet-id  fleet-[l'ID de la fleet que vous avez obtenu à l'étape précédente]\
     --ip-address 127.0.0.1 \
     --location custom-location-test-1 
 ```
 
-Vous aurez besoin de l'ID de la flotte que vous avez créé, que vous pouvez trouver sur la page ci-dessus pour l'associer.
+Vous aurez besoin de l'ID de la fleet que vous avez créé, que vous pouvez trouver sur la page ci-dessus pour l'associer.
 
 Vous pouvez également, si vous le souhaitez, choisir d'utiliser votre IP publique et faire du port forwarding sur votre Network Adress Translator (NAT) et pare-feu, si vous voulez que ce serveur de test soit accessible depuis le web public.
 
@@ -261,7 +261,7 @@ La commande ressemble à ceci :
 
 ```sh
 aws gamelift get-compute-auth-token \
- --fleet-id fleet-[l'ID de la flotte que vous avez obtenu à l'étape précédente]\
+ --fleet-id fleet-[l'ID de la fleet que vous avez obtenu à l'étape précédente]\
  --compute-name TestAWSCompute
 ```
 
@@ -273,10 +273,10 @@ Voici un script bat Windows pour lancer l'exécutable avec les bons arguments.
 
 ```bat
 set SERVER_EXE_PATH="[Le chemin vers votre exécutable de serveur]"
-set FLEET_ID="[L'ID de la flotte que vous avez obtenu précédemment]"
+set FLEET_ID="[L'ID de la fleet que vous avez obtenu précédemment]"
 set AUTH_ID="[Le AuthToken de l'étape précédente]"
 set HOST_ID="TestAWSCompute"
-set WEB_SOCKET="[l'emplacement du socket Gamelift ici, il devrait ressembler à ceci : wss://ap-[région choisie].api.amazongamelift.com]"
+set WEB_SOCKET="[la location du socket Gamelift ici, il devrait ressembler à ceci : wss://ap-[région choisie].api.amazongamelift.com]"
 set PORT="[un port à écouter, à votre convenance, UE le définit à 7777]"
 
 %SERVER_EXE_PATH%\[Nom de votre exécutable de serveur].exe -authtoken=%AUTH_ID% -fleetid=%FLEET_ID% -hostid=%HOST_ID% -websocketurl=%WEB_SOCKET% -port=%PORT% -log
