@@ -18,7 +18,7 @@ In terms of implementation, we already saw how one may connect to a distant sess
 
 ## The solution's architecture
 
-This is exaclty the same as for Game Session's architecture, please refer yourself to [this chapter](CreateSession.md#understand-the-solutions-architecture) if you have not seen it before.
+This is exactly the same as for Game Session's architecture, please refer yourself to [this chapter](CreateSession.md#understand-the-solutions-architecture) if you have not seen it before.
 
 ## Find Session Request method
 
@@ -185,7 +185,7 @@ Basically it is between this ...
 #the gamelift interface (you can define your own endpoint here, a normal endpoint would be: https://gamelift.ap-northeast-1.amazonaws.com)
 game_lift = boto3.client("gamelift")
 ```
-or this
+and this.
 ```py
 #the gamelift interface (you can define your own endpoint here, a normal endpoint would be: https://gamelift.ap-northeast-1.amazonaws.com, but we're using a local address for our use case to use Gamelift Local)
 game_lift = boto3.client("gamelift", endpoint_url='http://host.docker.internal:9870')
@@ -286,9 +286,9 @@ Using these methods, you should be able to
 
 Similarly from what you can do with a the Online Subsystem Null.
 
-The implementation is not completely tested on every platform, and still lacks a lot features that could be interesting to implement (going from basic  security features to entire matchmaking).
+The implementation is not completely tested on every platform, and still lacks a lot features that could be interesting to implement (going from basic security features to entire matchmaking).
 
-But this was out of scope for this as this is already hefty, and I still wanted this to be somewhat understandable and readable, not functionnal.
+But this was out of scope for this as this is already hefty, and I still wanted this to be somewhat understandable and readable.
 
 If you want to go further, don't hesitate to use my [Reference Note](../References.md), as there is a lot of great resources to learn about this, and these was only my meager contribution to it.
 
