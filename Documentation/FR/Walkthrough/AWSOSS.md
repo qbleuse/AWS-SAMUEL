@@ -95,7 +95,7 @@ Sinon, je pense que c'est assez simple : créer l'OSS, l'initialiser, et l'enreg
 
 ## Initialisation de l'Online Subsystem
 
-Maintenant, [voici](../../Plugins/AWSOSS/Source/AWSOSS/Public/OnlineSubsystemAWS.h#L28) à quoi ressemble l'OnlineSubsystem.
+Maintenant, [voici](../../../Plugins/AWSOSS/Source/AWSOSS/Public/OnlineSubsystemAWS.h#L28) à quoi ressemble l'OnlineSubsystem.
 
 ```cpp
 /**
@@ -154,7 +154,7 @@ Nous conservons toujours l'interface Null pour les connexions LAN.
 
 Les autres membres de cette classe concernent les requêtes HTTP.
 
-Voyons leur initialisation dans la méthode [Init de la classe](../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSubsystemAWS.cpp#L6)
+Voyons leur initialisation dans la méthode [Init de la classe](../../../Plugins/AWSOSS/Source/AWSOSS/Private/OnlineSubsystemAWS.cpp#L6)
 
 ```cpp
 bool FOnlineSubsystemAWS::Init()
@@ -171,7 +171,7 @@ bool FOnlineSubsystemAWS::Init()
 
 Assez simple, les membres de la classe sont initialisés.
 
-Heureusement, pour envoyer facilement des requêtes HTTP, Unreal dispose d'un Plugin Engine pour cela, et il suffit de l'ajouter à votre [.Build.cs](../../Plugins/AWSOSS/Source/AWSOSS.Build.cs) dans les DependencyModuleNames.
+Heureusement, pour envoyer facilement des requêtes HTTP, Unreal dispose d'un Plugin Engine pour cela, et il suffit de l'ajouter à votre [.Build.cs](../../../Plugins/AWSOSS/Source/AWSOSS.Build.cs) dans les DependencyModuleNames.
 
 ```csharp
 PublicDependencyModuleNames.AddRange(new string[] { 
