@@ -18,11 +18,11 @@ Let see how we can list up the created game sessions for our user to choose and 
 
 ## The solution's architecture
 
-The solution attempts to replicate what teh LAN implemenation feels like.
+The solution attempts to replicate what t he LAN implemenation feels like.
 So the actual solution is just about gathering the information on created game session as SessionSearch in the OSS, and leave actual implementation for the user.
 So all we need is to get back the game session's data
 
-This means the architecture is fairly similar to the one to create game session, the only difference being that there is connection involved.
+This means the architecture is fairly similar to the one to create game session, the only difference being that there is no connection involved.
 
 ### Gamelift Anywhere Architecture
 
@@ -50,7 +50,7 @@ Once again, it is the same method as explained in the [create session section](C
 
 ## Find Session Request method
 
-To access the game session's information on gamelift we need to find an http request to call a lambda.
+To access the game session's information on gamelift we need to send an http request to call a lambda.
 
 The request method will be very similar to the one we've seen to start a session, as the logic is quite the same.
 
@@ -156,7 +156,7 @@ Most function we already saw in the [create session lambda](CreateSession.md#cre
 
 The only method used to get the currently running game sessions is [search_game_sessions](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/gamelift/client/search_game_sessions.html).
 
-There is a few functions you can use to get back this data, but the advantage of search_game_sessions, is that it can filter out game sessions depending on parameters.
+There is a few functions you can use to get back game session data, but the advantage of search_game_sessions, is that it can filter out game sessions depending on parameters.
 It is outside our scope, but you could replace the request to a POST request and give data to filter out wanted game sessions out of the active ones.
 The only filter expression used here to picture this feature is the fact we will only respond with game sessions that are yet to be full (simply put, with player sessions yet to be created).
 
@@ -212,7 +212,7 @@ It is written in [AWS' own documentation](https://docs.aws.amazon.com/gamelift/l
 - DescribeGameSessions
 - DescribePlayerSessions
 
-So we actually do not have the choice of what function to use to get the information on avaiblable and active game sessions.
+So we actually do not have the choice of what function to use to get the information on available and active game sessions.
 
 Now that the request gives us data about game session, let's handle the response.
 
@@ -289,7 +289,7 @@ void FOnlineSessionAWS::OnFindSessionsResponseReceived(FHttpRequestPtr Request, 
 		return;
 ```
 
-Then, we loop through the number of game sessions the response gave us and create a SessionSearchResult object (wchich is an OSS object), for each one.
+Then, we loop through the number of game sessions the response gave us and create a SessionSearchResult object (which is an OSS object), for each one.
 
 ```cpp
 //compute our ping approximate, at least better than nothing
@@ -344,11 +344,11 @@ It calls the callback at the end for the Search Results to be used somewhere.
 
 Expected use would to make a session menu by listing game session to allow user to choose its own menu.
 
-> [!WARNING]
-> It may seem counter intuitive, but while I have tested this solution and it worked, I could not test that find sessions worked with multiple sessions, so there may be a problem.
-
 > [!NOTE]
 > This is very much out of the scope, but it may be preferable to not send *all data* about your game sessions to your client, as it could be used maliciously.
 > You should only send what you need.
+
+> [!WARNING]
+> It may seem counter intuitive, but while I have tested this solution and it worked, I could not test that find sessions worked with multiple sessions, so there may be a problem.
 
 Now that user can choose a game session amongst the ones that are up, let's see how to allow him to [join a game session](JoinSession.md).
