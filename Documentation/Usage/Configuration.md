@@ -123,3 +123,5 @@ Globals:
 ```
 
 You can also tweak the requirements.txt files of each lambda to your environment.
+
+Now we can try to [Run the server](Run.md).
