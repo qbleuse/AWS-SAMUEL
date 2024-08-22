@@ -6,6 +6,8 @@ A repository for quick integration and test of AWS Gamelift connection features 
 
 It is also a play of word to include the name of a friend as the name of a repository.
 
+![Illustration](Documentation/Media/stripped-out-multiplayer-session-based-game-hosting-on-aws.png)
+
 ## Table of Contents
 
 - [AWS-SAMUEL](#aws-samuel)
@@ -42,7 +44,7 @@ So what this repository is :
 - A complete solution implementing all of the features of AWS Gamelift
 - A robust and secure integration
 
-While the code here may be able to be used outside of the scope of the project as SAM-CLI includes a deploy command to make the corresponding local implementation of the chosen server, and that local integration of Gamelift is supported both for legacy and new SDK, meaning it uses Gamelift Anywhere and that installing Gamelift Anywhere by using this codebase should be trivial ; both are not tested and outside the scope of the intended usage.
+While the code here may be able to be used outside of the scope of the project to make an AWS API Gateway using SAM-CLI's deploy command or use the available Gamelift Anywhere implementation to connect to an available distant public server ; both are not tested and outside the scope of the intended usage.
 
 Also integration was done with "as long as it works" mindset, so some parts of the implementation (such as SAM lambdas) are very much not optimised.
 
@@ -85,8 +87,8 @@ For how to use and get started on using the plugin, see [here](Documentation/Usa
 If you want to know how the integration was done, maybe to develop your own version or out of curiosity, it is [this way](Documentation/Walkthrough/Design.md).
 
 Once again, this walkthrough will be told from the point of view of a Windows User.
-Also this is aimed towards beginner that never worked on how to connect to computers before (as this was my case when I did this), but I expect Unreal Engine and coding experiences, and will not explain basic programming principles.
-Also, as I am also learning, there may be thing taht are false, or incomplete.
+Also this is aimed towards beginner in Network programming (as this was my case when making it), but I expect Unreal Engine and coding experiences, and will not explain basic programming principles.
+Also, as I am still learning, there may be thing taht are false, or incomplete.
 
 ## References and Links
 
