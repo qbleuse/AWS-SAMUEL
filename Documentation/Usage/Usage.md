@@ -71,9 +71,9 @@ void UTestAWSGameInstance::CreateSession_Implementation(bool isSessionLan)
 ```
 
 CreateSession has for only purpose to save the setting of a certain game session locally, in the OSS.
-Then if you call Start Session on this created session, the Plugin will create an equivalent game session with client as owner, and will create a player session associated with the client, that it gives back as a connect string in the local game session.
+Then if you call Start Session on this created session, the Plugin will create an equivalent game session with client as owner on gamelift, and will create a player session associated with the client, that it gives back as a connect string to client.
 
-With this Connect String (meaning the url and port of your gamelift server), you may connect to the newly created game session that client is the owner.
+With this Connect String (meaning the url and port of your gamelift server), you may connect to the newly created game session that client is the owner of.
 
 [Here](../../Source/Private/TestAWSGameInstance.cpp#L309) is an example of how you would do this in the callback of Start Session.
 
@@ -137,13 +137,13 @@ FDelegateHandle UTestAWSGameInstance::FindSession(FOnFindSessionsCompleteDelegat
 }
 ```
 
-Using this you may afterwards use Join Session to connect to said game session.
+Using this you may afterward use Join Session to connect to said game session.
 
 ## Join Session
 
 Join Session request the creation of a player session associated with the game session chosen to connect to it.
 
-The player session is filled up in the game session given by the call back and you may use the ip address and port to connect to the game session.
+The player session is created by the game session given by the callback and you may use the ip address and port to connect to the game session.
 
 [Here](../../Source/Private/TestAWSGameInstance.cpp#L273) is an example of calling Join Session:
 
@@ -166,7 +166,7 @@ bool UTestAWSGameInstance::JoinSessionAndTravel(const FOnlineSessionSearchResult
 ```
 
 
-Then, [here](../../Source/Private/TestAWSGameInstance.cpp#L288) is an example of may look like the callback of join session, to afterwards connect to the server.
+Then, [here](../../Source/Private/TestAWSGameInstance.cpp#L288) is an example of may look like the callback of join session, to afterward connect to the server.
 
 ```cpp
 void UTestAWSGameInstance::TravelToJoinSession(FName sessionName, EOnJoinSessionCompleteResult::Type joinResult)
