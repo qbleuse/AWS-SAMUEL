@@ -67,15 +67,15 @@ Bien que l'intégration n'ait pas été terminée à temps pour ce projet, j'ai 
 
 ## Ce qui est inclus
 
-- [Un plugin Unreal Engine personnalisé Online SubSystem, intégrant la création, la recherche et la participation aux sessions de jeu AWS Gamelift](Plugins/AWSOSS/)
-- [Un SAM API gateway local pour test local](Plugins/AWSOSS/SAM/)
-- [Quelques fichiers source en exemple pour utiliser ledit plugin](Source/)
-- [Un fichier .ini avec des lignes à copier pour faire fonctionner le plugin](Config/DefaultEngine.ini)
+- [Un plugin Unreal Engine personnalisé Online SubSystem, intégrant la création, la recherche et la participation aux sessions de jeu AWS Gamelift](../../Plugins/AWSOSS/)
+- [Un SAM API gateway local pour test local](../../Plugins/AWSOSS/SAM/)
+- [Quelques fichiers source en exemple pour utiliser ledit plugin](../../Source/)
+- [Un fichier .ini avec des lignes à copier pour faire fonctionner le plugin](../../Config/DefaultEngine.ini)
 - [Un guide expliquant comment le code fonctionne pour ceux qui veulent aller plus loin](#guide)
 
 ## Comment installer
 
-L'installation est assez compliquée, car elle nécessite de compiler le plugin Gamelift et d'installer d'autres éléments, et constitue une partie importante du travail. Voici le [guide pour l'installer](Documentation/Install/Prerequisites.md).
+L'installation est assez compliquée, car elle nécessite de compiler le plugin Gamelift et d'installer d'autres éléments, et constitue une partie importante du travail. Voici le [guide pour l'installer](Install/Prerequisites.md).
 
 Une chose à noter : ce plugin et les tests pour vérifier son bon fonctionnement ont été réalisés exclusivement sur Windows 11.
 
@@ -83,11 +83,11 @@ Bien que, voyant les outils utilisés, je pense qu'il ne devrait pas être trop 
 
 ## Comment utiliser / Commencer
 
-Pour savoir comment utiliser et commencer à utiliser le plugin, voir [ici](Documentation/Usage/Configuration.md)
+Pour savoir comment utiliser et commencer à utiliser le plugin, voir [ici](Usage/Configuration.md)
 
 ## Guide
 
-Si vous voulez savoir comment l'intégration a été réalisée, peut-être pour développer votre propre version ou par curiosité, c'est [ici](Documentation/Walkthrough/Design.md).
+Si vous voulez savoir comment l'intégration a été réalisée, peut-être pour développer votre propre version ou par curiosité, c'est [ici](Walkthrough/Design.md).
 
 Encore une fois, ce guide sera présenté du point de vue d'un utilisateur Windows.
 De plus, cela s'adresse aux débutants en prog réseau (comme c'était mon cas lors de la création), mais j'attends une expérience avec Unreal Engine et en programmation, et je n'expliquerai donc pas des principes de base de programmation.
@@ -95,7 +95,7 @@ De plus, je fait part d'un retour d'expérience, il peut donc y avoir des erreur
 
 ## Références et Liens
 
-Voici une [liste de tous les liens que j'ai utilisés](..//References.md) pour réaliser ce projet, à voir comme ma bibliographie.
+Voici une [liste de tous les liens que j'ai utilisés](../References.md) pour réaliser ce projet, à voir comme ma bibliographie.
 
 ## Licence
 
