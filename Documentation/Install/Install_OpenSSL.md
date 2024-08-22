@@ -1,6 +1,6 @@
 # Installing OpenSSL
 
-You may not know what OpenSSL is, if that is the case, I'll redirect you to the [wikipedia article](https://fr.wikipedia.org/wiki/OpenSSL) that talks about it. In short, it is a popular cryptographic library for net security. 
+You may not know what OpenSSL is, if that is the case, I'll redirect you to the [wikipedia article](https://en.wikipedia.org/wiki/OpenSSL) that talks about it. In short, it is a popular cryptographic library for net security. 
 
 Otherwise, OpenSSL is trickier to install and choose, as the major problem here is compatibility.
 

@@ -22,6 +22,7 @@ It is also a play of word to include the name of a friend as the name of a repos
   - [References and Links](#references-and-links)
   - [License](#license)
 
+La documentation est disponible en français, [ici](Documentation/FR/README.md).
 
 ## What is it ?
 
