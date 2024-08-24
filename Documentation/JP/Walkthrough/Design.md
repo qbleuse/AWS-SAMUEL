@@ -373,4 +373,4 @@ fleetはGameLift上のリソースで、通常は地域内のサーバーを意�
 - [AWSOSSがAPI GatewayにHTTPリクエストを送信する](AWSOSS.md)
 - [セッションを作成する](CreateSession.md)
 - [セッションを見つける](FindSession.md)
-- [セッションに参加する](JoinSessiond.md)
+- [セッションに参加する](JoinSession.md)
