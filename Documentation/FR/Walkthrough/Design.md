@@ -377,4 +377,4 @@ Maintenant que nous avons couvert le design général de la solution, plongeons 
 - [Faire en sorte que AWSOSS lance des requêtes HTTP vers API Gateway](AWSOSS.md)
 - [Créer une session](CreateSession.md)
 - [Trouver une session](FindSession.md)
-- [Rejoindre une session](JoinSessiond.md)
+- [Rejoindre une session](JoinSession.md)
